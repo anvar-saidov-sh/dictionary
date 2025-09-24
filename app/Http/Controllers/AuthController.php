@@ -28,7 +28,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        auth()->guard()->login($student);
+        auth()->login($student);
         return redirect('/');
     }
     public function showLogin()
