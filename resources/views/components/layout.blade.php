@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ninja Network</title>
+  <title>Profile</title>
 
   {{-- @vite('resources/css/app.css') --}}
 </head>
@@ -16,9 +16,9 @@
   <header>
     <nav>
       <h1>
-        <a href="{{ route('students.index') }}">Students </a>
+        <a href="{{ route('students.index') }}">Users </a>
       </h1>
-      <a href="{{ route('students.create') }}">Create new student</a>
+      <a href="{{ route('students.create') }}">Create new user</a>
     </nav>
   </header>
 

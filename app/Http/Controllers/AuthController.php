@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -56,7 +55,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        auth()->guard()->logout();
+        auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
