@@ -10,7 +10,6 @@ class Users extends Model
         'name',
         'email',
         'username',
-        'country_id',
     ];
 
 }
