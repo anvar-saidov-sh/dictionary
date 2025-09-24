@@ -8,13 +8,13 @@
 </head>
 <body>
     <div class="">
-        <form action="/register" method="GET">
+        <form action="/register" method="POST">
             @csrf
             <input type="text" placeholder="Enter name">
             <input type="email" placeholder="Enter email">
             <input type="password" name="password" id="password" placeholder="Enter password">
             <input type="password" name="password_confirmed" id="" placeholder="Confirm password">
-            <button type="submit">Submit</button>
+            <button type="submit">Register</button>
         </form>
     </div>
 </body>

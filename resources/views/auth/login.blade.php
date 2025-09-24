@@ -7,6 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-
+    <div class="">
+        <form action="/register" method="POST">
+            @csrf
+            <input type="email" placeholder="Enter email">
+            <input type="password" name="password" id="password" placeholder="Enter password">
+            <button type="submit">Login</button>
+        </form>
+    </div>
 </body>
 </html>
