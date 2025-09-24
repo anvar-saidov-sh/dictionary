@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Users;
+
+use App\Models\Customers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 
 class AuthController extends Controller
 {
@@ -13,7 +16,7 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    public function register(Request $request): RedirectResponse
     {
         $request->validate([
             'name'     => 'required|string|max:255',
@@ -21,13 +24,13 @@ class AuthController extends Controller
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $user = Users::create([
+        $user = Customers::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
-        auth()->login($user);
+        event(new Registered($user));
+        auth()->Auth::login($user);
 
         return redirect('/dashboard');
     }
@@ -43,7 +46,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        if (auth()->attempt($credentials, $request->remember)) {
+        if (auth()->Auth::attempt($credentials, $request->remember)) {
             $request->session()->regenerate();
             return redirect('/dashboard');
         }
@@ -55,7 +58,7 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        auth()->logout();
+        auth()->Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
