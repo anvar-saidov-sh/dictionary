@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-
+    <div class="">
+        <form action="">
+            @csrf
+            <input type="text" placeholder="Enter name">
+            <input type="email" placeholder="Enter email">
+            <input type="password" name="password" id="password" placeholder="Enter password">
+            <input type="password" name="password_confirmed" id="" placeholder="Confirm password">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
