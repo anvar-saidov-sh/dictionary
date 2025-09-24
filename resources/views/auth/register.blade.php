@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="">
-        <form action="">
+        <form action="/register" method="GET">
             @csrf
             <input type="text" placeholder="Enter name">
             <input type="email" placeholder="Enter email">
