@@ -2,20 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Student extends Model
+class Student extends Authenticatable
 {
-    use HasFactory;
-    protected $fillable =[
+    use Notifiable;
+
+    protected $fillable = [
         'name',
         'email',
-        'password'
+        'password',
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
-
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+    // public function user(){
+    //     return $this->belongsTo(User::class);
+    // }
 }

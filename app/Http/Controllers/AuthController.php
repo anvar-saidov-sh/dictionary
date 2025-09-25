@@ -4,21 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
-class AuthController extends Controller
+class StudentAuthController extends Controller
 {
-    public function showRegister()
+    public function showRegisterForm()
     {
-        return view('auth.register');
+        return view('students.register');
     }
+
     public function register(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255', 'email', 'unique:' . Student::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:students,email',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $student = Student::create([
@@ -27,38 +28,30 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        auth()->login($student);
-        return redirect('/');
-    }
-    public function showLogin()
-    {
-        return view('auth.login');
+        Auth::guard('student')->login($student);
+
+        return redirect()->route('student.dashboard');
     }
 
+    public function showLoginForm()
+    {
+        return view('students.login');
+    }
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        if (auth()->guard()->attempt($credentials, $request->remember)) {
-            $request->session()->regenerate();
-            return redirect('/dashboard');
+        if (Auth::guard('student')->attempt($credentials)) {
+            return redirect()->route('student.dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'Invalid credentials',
-        ]);
+        return back()->withErrors(['email' => 'Invalid credentials']);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        auth()->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
+        Auth::guard('student')->logout();
+        return redirect()->route('student.login');
     }
 }
