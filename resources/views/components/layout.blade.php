@@ -16,9 +16,9 @@
   <header>
     <nav>
       <h1>
-        <a href="{{ route('students.index') }}">Users </a>
+        <a href="{{ route('student.register') }}">Register </a>
       </h1>
-      <a href="{{ route('students.create') }}">Create new user</a>
+      <a href="{{ route('student.login') }}">Create new user</a>
     </nav>
   </header>
 
