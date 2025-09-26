@@ -38,6 +38,10 @@
             </a>
         @endforeach
     </div>
+    <form action="{{ route('words.create') }}" method="get">
+        <button type="submit">Create</button>
+    </form>
 </body>
 
 </html>
+@extends('components.layout')
