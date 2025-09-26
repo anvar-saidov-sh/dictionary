@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class WordsController extends Controller
 {
     public function index(){
-        $words = Words::paginate(20);
         return view('words.index');
     }
 
@@ -23,5 +22,9 @@ class WordsController extends Controller
         ]);
 
         return view('words.create');
+    }
+    public function show($letter)
+    {
+        return view('words.show');
     }
 }

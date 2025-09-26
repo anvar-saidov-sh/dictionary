@@ -13,23 +13,20 @@
     <div class="flex flex-wrap w-[100%] gap-5 mt-4 items-center justify-center h-[90px]">
         @foreach (range('A', 'Z') as $alphabet)
             @if ($alphabet != 'C' && $alphabet != 'W')
-                <h2 class="text-4xl hover:text-5xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100">
-                    {{ $alphabet }}
-                </h2>
+                <a href="{{ url('/words/' . strtolower($alphabet)) }}">
+                    <h2 class="text-4xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-200 hover:animate-bounce">
+                        {{ $alphabet }}
+                    </h2>
+                </a>
             @endif
         @endforeach
-        <h2 class="text-4xl hover:text-5xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100">
-            Oʻ
-        </h2>
-        <h2 class="text-4xl hover:text-5xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100">
-            Gʻ
-        </h2>
-        <h2 class="text-4xl hover:text-5xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100">
-            Sh
-        </h2>
-        <h2 class="text-4xl hover:text-5xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100">
-            Ch
-        </h2>
+         @foreach (['Oʻ', 'Gʻ', 'Sh', 'Ch'] as $special)
+            <a href="{{ url('/words/' . strtolower($special)) }}">
+                <h2 class="text-4xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100 hover:animate-bounce">
+                    {{ $special }}
+                </h2>
+            </a>
+        @endforeach
     </div>
 </body>
 

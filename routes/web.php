@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\WordsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,5 +26,6 @@ Route::middleware('auth:student')->group(function () {
     Route::get('/words', function (){
         return view('words.index');
     })->name('index');
+    Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show');
 });
 
