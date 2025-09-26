@@ -1,5 +1,5 @@
 <x-layout>
-    <form method="POST" action="{{ route('student.register') }}">
+    <form method="POST" action="{{ route('register') }}">
         @csrf
         <input type="text" name="name" placeholder="Name" required>
         <input type="email" name="email" placeholder="Email" required>

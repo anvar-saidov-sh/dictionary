@@ -30,7 +30,7 @@ class StudentController extends Controller
 
         Auth::guard('student')->login($student);
 
-        return redirect()->route('student.dashboard');
+        return redirect()->route('dashboard');
     }
 
     public function showLoginForm()
@@ -43,7 +43,7 @@ class StudentController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('student')->attempt($credentials)) {
-            return redirect()->route('student.dashboard');
+            return redirect()->route('dashboard');
         }
 
         return back()->withErrors(['email' => 'Invalid credentials']);
@@ -52,6 +52,6 @@ class StudentController extends Controller
     public function logout()
     {
         Auth::guard('student')->logout();
-        return redirect()->route('student.login');
+        return redirect()->route('login');
     }
 }

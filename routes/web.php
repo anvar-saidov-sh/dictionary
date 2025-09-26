@@ -10,17 +10,17 @@ Route::get('/', function () {
 });
 
 
-Route::get('student/register', [StudentController::class, 'showRegisterForm'])->name('student.register');
-Route::post('student/register', [StudentController::class, 'register']);
+Route::get('/register', [StudentController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [StudentController::class, 'register']);
 
-Route::get('student/login', [StudentController::class, 'showLoginForm'])->name('student.login');
-Route::post('student/login', [StudentController::class, 'login']);
+Route::get('/login', [StudentController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [StudentController::class, 'login']);
 
-Route::post('student/logout', [StudentController::class, 'logout'])->name('student.logout');
+Route::post('/logout', [StudentController::class, 'logout'])->name('logout');
 
 Route::middleware('auth:student')->group(function () {
-    Route::get('student/dashboard', function () {
+    Route::get('/dashboard', function () {
         return view('students.dashboard');
-    })->name('student.dashboard');
+    })->name('dashboard');
 });
 
