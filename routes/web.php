@@ -27,5 +27,6 @@ Route::middleware('auth:student')->group(function () {
         return view('words.index');
     })->name('index');
     Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show');
+    Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
 });
 

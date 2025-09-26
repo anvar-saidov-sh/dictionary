@@ -15,13 +15,13 @@ class WordsController extends Controller
 
     public function create(Request $request)
     {
-        $word = Words::create([
-            'name' => $request->name,
-            'definition' => $request->definition,
-            'examples' => $request->examples,
-            'idioms' => $request->idioms,
-            'image' => $request->image,
-        ]);
+        // $word = Words::create([
+        //     'name' => $request->name,
+        //     'definition' => $request->definition,
+        //     'examples' => $request->examples,
+        //     'idioms' => $request->idioms,
+        //     'image' => $request->image,
+        // ]);
 
         return view(view: 'words.create');
     }
