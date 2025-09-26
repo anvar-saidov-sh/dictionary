@@ -13,17 +13,28 @@ class WordsController extends Controller
         return view('words.index');
     }
 
-    public function create(Request $request)
+    public function create()
     {
-        // $word = Words::create([
-        //     'name' => $request->name,
-        //     'definition' => $request->definition,
-        //     'examples' => $request->examples,
-        //     'idioms' => $request->idioms,
-        //     'image' => $request->image,
-        // ]);
-
         return view(view: 'words.create');
+    }
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'definition' => 'required|string',
+            'examples' => 'nullable|string',
+            'idioms' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+
+        // Handle image upload if exists
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('words', 'public');
+        }
+
+        Words::create($validated);
+
+        return redirect()->route('index')->with('success', 'Word created successfully!');
     }
     public function show($char)
     {
