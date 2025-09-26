@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
 
-  {{-- @vite('resources/css/app.css') --}}
+  @vite('resources/css/app.css')
 </head>
 <body>
   @if (session('success'))
@@ -18,13 +18,12 @@
       <h1>
         <a href="{{ route('register') }}">Register </a>
       </h1>
-      <a href="{{ route('login') }}">Create new user</a>
+      <a href="{{ route('login') }}">Login</a>
     </nav>
   </header>
 
-  <main class="container">
+  <main class="w-[100%]">
     {{ $slot }}
   </main>
-
 </body>
 </html>
