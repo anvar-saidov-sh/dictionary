@@ -25,7 +25,7 @@ class WordsController extends Controller
 
         return view('words.create');
     }
-    public function show($slug)
+    public function show($char)
     {
         $map = [
             'o-' => 'Oʻ',
@@ -34,7 +34,7 @@ class WordsController extends Controller
             'ch' => 'Ch',
         ];
 
-        $letter = $map[$slug] ?? strtoupper($slug);
+        $letter = $map[$char] ?? strtoupper($char);
         return view('words.show');
     }
 }
