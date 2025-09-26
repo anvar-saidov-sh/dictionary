@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Words;
+use Doctrine\Inflector\Rules\Word;
 use Illuminate\Http\Request;
 
 class WordsController extends Controller
 {
     public function index(){
+        $words = Words::paginate(20);
         return view('words.index');
     }
 
@@ -19,5 +21,7 @@ class WordsController extends Controller
             'idioms' => $request->idioms,
             'image' => $request->image,
         ]);
+
+        return view('words.create');
     }
 }

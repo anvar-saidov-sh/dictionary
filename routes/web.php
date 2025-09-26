@@ -22,5 +22,8 @@ Route::middleware('auth:student')->group(function () {
     Route::get('/dashboard', function () {
         return view('students.dashboard');
     })->name('dashboard');
+    Route::get('/words', function (){
+        return view('words.index');
+    })->name('index');
 });
 
