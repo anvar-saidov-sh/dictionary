@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('definition');
             $table->string('examples')->nullable();
             $table->string('idioms')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image')->nullable(); //upload_id
             $table->timestamps();
         });
     }

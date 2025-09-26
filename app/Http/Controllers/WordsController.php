@@ -23,7 +23,7 @@ class WordsController extends Controller
             'image' => $request->image,
         ]);
 
-        return view('words.create');
+        return view(view: 'words.create');
     }
     public function show($char)
     {

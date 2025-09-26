@@ -7,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="">
+        <form action="" method="post">
+            @csrf
+            <input type="text" placeholder="Enter the word">
+            <input type="text" placeholder="Enter the definition">
+        </form>
+    </div>
 </body>
 </html>
