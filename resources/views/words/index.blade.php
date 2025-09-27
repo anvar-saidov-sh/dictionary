@@ -44,4 +44,3 @@
 </body>
 
 </html>
-@extends('components.layout')

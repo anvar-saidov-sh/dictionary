@@ -22,7 +22,7 @@
     </nav>
   </header>
 
-  <main class="w-[100%]">
+  <main class="w-[100%] bg-amber-900">
     {{ $slot }}
   </main>
 </body>

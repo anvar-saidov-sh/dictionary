@@ -15,7 +15,7 @@ class WordsController extends Controller
 
     public function create()
     {
-        return view(view: 'words.create');
+        return view( 'words.create');
     }
     public function store(Request $request)
     {

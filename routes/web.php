@@ -23,9 +23,7 @@ Route::middleware('auth:student')->group(function () {
     Route::get('/dashboard', function () {
         return view('students.dashboard');
     })->name('dashboard');
-    Route::get('/words', function () {
-        return view('words.index');
-    })->name('index');
+    Route::get('/words', [WordsController::class, 'index'])->name('index');
     Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show');
     Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
     Route::post('/words', [WordsController::class, 'store'])->name('words.store');
