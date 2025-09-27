@@ -18,13 +18,13 @@
         <input type="text" name="name" required><br>
 
         <label>Definition:</label>
-        <textarea name="definition" required></textarea><br>
+        <textarea name="definition" required maxlength="500"></textarea><br>
 
         <label>Examples:</label>
-        <textarea name="examples"></textarea><br>
+        <textarea name="examples" maxlength="1000"></textarea><br>
 
         <label>Idioms:</label>
-        <textarea name="idioms"></textarea><br>
+        <textarea name="idioms" maxlength="200"></textarea><br>
 
         <label>Image:</label>
         <input type="file" name="image"><br><br>

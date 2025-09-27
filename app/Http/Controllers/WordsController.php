@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Words;
-use Doctrine\Inflector\Rules\Word;
 use Illuminate\Http\Request;
 
 class WordsController extends Controller
@@ -15,8 +14,9 @@ class WordsController extends Controller
 
     public function create()
     {
-        return view( 'words.create');
+        return view('words.create'); // ✅ fixed
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -27,7 +27,6 @@ class WordsController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        // Handle image upload if exists
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('words', 'public');
         }
@@ -36,6 +35,7 @@ class WordsController extends Controller
 
         return redirect()->route('index')->with('success', 'Word created successfully!');
     }
+
     public function show($char)
     {
         $map = [
@@ -46,6 +46,7 @@ class WordsController extends Controller
         ];
 
         $letter = $map[$char] ?? strtoupper($char);
-        return view('words.show');
+
+        return view('words.show', compact('letter'));
     }
 }
