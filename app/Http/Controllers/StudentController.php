@@ -13,7 +13,9 @@ class StudentController extends Controller
     {
         return view('students.register');
     }
-
+    public function dashboard(){
+        return view('students.dashboard');
+    }
     public function register(Request $request)
     {
         $request->validate([

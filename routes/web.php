@@ -20,10 +20,7 @@ Route::post('/login', [StudentController::class, 'login']);
 Route::post('/logout', [StudentController::class, 'logout'])->name('logout');
 
 Route::middleware('auth:student')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('students.dashboard');
-    })->name('dashboard');
-
+    Route::get('/dashboard', [StudentController::class,'dashboard'])->name('dashboard');
     Route::get('/words', [WordsController::class, 'index'])->name('index');
     Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
     Route::post('/words', [WordsController::class, 'store'])->name('words.store');
