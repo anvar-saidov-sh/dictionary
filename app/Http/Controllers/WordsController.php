@@ -36,17 +36,20 @@ class WordsController extends Controller
         return redirect()->route('index')->with('success', 'Word created successfully!');
     }
 
-    public function show($char)
-    {
-        $map = [
-            'o-' => 'Oʻ',
-            'g-' => 'Gʻ',
-            'sh' => 'Sh',
-            'ch' => 'Ch',
-        ];
+public function show($char)
+{
+    $map = [
+        'o-' => 'Oʻ',
+        'g-' => 'Gʻ',
+        'sh' => 'Sh',
+        'ch' => 'Ch',
+    ];
 
-        $letter = $map[$char] ?? strtoupper($char);
+    $letter = $map[$char] ?? strtoupper($char);
 
-        return view('words.show', compact('letter'));
-    }
+    $words = Words::where('name', 'LIKE', $letter . `%`)->get();
+
+    return view('words.show', compact('letter', 'words'));
+}
+
 }

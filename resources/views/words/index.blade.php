@@ -15,7 +15,7 @@
             <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-4 justify-items-center">
                 @foreach (range('A', 'Z') as $alphabet)
                     @if ($alphabet != 'C' && $alphabet != 'W')
-                        <a href="{{ url(`/words/` . strtolower($alphabet)) }}"
+                        <a href="{{ route('words.show' , strtolower($alphabet)) }}"
                             class="w-14 h-14 flex items-center justify-center rounded-lg border border-gray-300
                               bg-gray-50 text-xl font-semibold text-gray-800 shadow-sm
                               hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-200 ease-in-out">
@@ -25,7 +25,7 @@
                 @endforeach
 
                 @foreach ($specials as $letter => $slug)
-                    <a href="{{ url(`/words/` . $slug) }}"
+                    <a href="{{ route('words.show',  $slug) }}"
                         class="w-14 h-14 flex items-center justify-center rounded-lg border border-gray-300
                           bg-gray-50 text-xl font-semibold text-gray-800 shadow-sm
                           hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-200 ease-in-out">
