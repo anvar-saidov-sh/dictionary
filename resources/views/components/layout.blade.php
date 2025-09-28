@@ -37,7 +37,7 @@
           <div class="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg opacity-0 invisible
                       group-hover:opacity-100 group-hover:visible transform scale-95 group-hover:scale-100
                       transition-all duration-200 ease-out">
-            <a href="{{ route('dashboard') }}"
+            <a href="{{ route('students.index') }}"
                class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-t-lg">
               Profile
             </a>
