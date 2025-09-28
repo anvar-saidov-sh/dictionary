@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Document</title>
+    <title>Words</title>
 </head>
 
-<body>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center">
     @php
         $specials = [
             'Oʻ' => 'o-',
@@ -18,29 +18,41 @@
             'Ch' => 'ch',
         ];
     @endphp
-    <div class="flex flex-wrap w-[100%] gap-5 mt-4 items-center justify-center h-[90px]">
-        @foreach (range('A', 'Z') as $alphabet)
-            @if ($alphabet != 'C' && $alphabet != 'W')
-                <a href="{{ url('/words/' . strtolower($alphabet)) }}">
-                    <h2
-                        class="text-4xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-200 hover:animate-bounce">
-                        {{ $alphabet }}
-                    </h2>
-                </a>
-            @endif
-        @endforeach
-        @foreach ($specials as $letter => $slug)
-            <a href="{{ url(`/words/` . $slug) }}">
-                <h2
-                    class="text-4xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100 hover:animate-bounce">
-                    {{ $letter }}
-                </h2>
-            </a>
-        @endforeach
-    </div>
-    <form action="{{ route('words.create') }}" method="get">
-        <button type="submit">Create</button>
-    </form>
-</body>
 
+    <div class="w-full max-w-5xl bg-white shadow-lg rounded-2xl mt-10 p-6">
+        <h1 class="text-2xl font-bold text-gray-800 text-center mb-6"> Browse Words by Alphabet</h1>
+
+        <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-4 justify-items-center">
+            @foreach (range('A', 'Z') as $alphabet)
+                @if ($alphabet != 'C' && $alphabet != 'W')
+                    <a href="{{ url(`/words/` . strtolower($alphabet)) }}"
+                       class="w-14 h-14 flex items-center justify-center rounded-lg border border-gray-300
+                              bg-gray-50 text-xl font-semibold text-gray-800 shadow-sm
+                              hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-200 ease-in-out">
+                        {{ $alphabet }}
+                    </a>
+                @endif
+            @endforeach
+
+            @foreach ($specials as $letter => $slug)
+                <a href="{{ url(`/words/` . $slug) }}"
+                   class="w-14 h-14 flex items-center justify-center rounded-lg border border-gray-300
+                          bg-gray-50 text-xl font-semibold text-gray-800 shadow-sm
+                          hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-200 ease-in-out">
+                    {{ $letter }}
+                </a>
+            @endforeach
+        </div>
+
+        <div class="mt-8 text-center">
+            <form action="{{ route('words.create') }}" method="get">
+                <button type="submit"
+                        class="px-6 py-2 bg-indigo-600 text-white rounded-lg font-semibold shadow-md
+                               hover:bg-indigo-700 hover:shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5">
+                     Add New Word
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
 </html>
