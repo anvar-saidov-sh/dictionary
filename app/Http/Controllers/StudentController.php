@@ -13,8 +13,15 @@ class StudentController extends Controller
     {
         return view('students.register');
     }
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('students.dashboard');
+    }
+    public function show()
+    {
+        $user = auth()->guard()->user();
+        $students = Student::where('id', $user->id)->get();
+        return view('students.index', compact('students'));
     }
     public function register(Request $request)
     {
