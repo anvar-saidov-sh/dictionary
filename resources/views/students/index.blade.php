@@ -1,7 +1,5 @@
 <x-layout>
-    <h1 class="text-2xl font-bold mb-4">Students Index</h1>
-
-    <p class="text-gray-600">Here you can see the list of students.</p>
+    <h1 class="text-gray-600">Your Profile</h1>
 
     <div class="mt-6">
         <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
