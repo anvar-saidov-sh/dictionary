@@ -30,7 +30,7 @@
             @endif
         @endforeach
         @foreach ($specials as $letter => $slug)
-            <a href="{{ url('/words/' . $slug) }}">
+            <a href="{{ url(`/words/` . $slug) }}">
                 <h2
                     class="text-4xl hover:text-gray-500 text-gray-800 cursor-pointer ease-in-out transition duration-100 hover:animate-bounce">
                     {{ $letter }}
