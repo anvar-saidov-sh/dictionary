@@ -14,12 +14,7 @@
   @endif
 
   <header>
-    <nav>
-      <h1>
-        <a href="{{ route('register') }}">Register </a>
-      </h1>
-      <a href="{{ route('login') }}">Login</a>
-    </nav>
+    
   </header>
 
   <main class="w-[100%]">
