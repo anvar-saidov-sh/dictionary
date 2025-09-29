@@ -15,4 +15,8 @@ class Words extends Model
         'idioms',
         'image',
     ];
+
+    public function student(){
+        return $this->belongsTo(Student::class);
+    }
 }
