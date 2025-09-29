@@ -8,27 +8,15 @@
         @else
             <div class="space-y-4">
                 @foreach ($words as $word)
-                    <div class="p-4 bg-white rounded-lg shadow hover:shadow-md transition">
+                    <div class="p-4 bg-white rounded-lg shadow hover:shadow-md transition flex justify-between">
                         <h2 class="text-xl font-semibold text-indigo-700">{{ $word->name }}</h2>
-                        <p class="text-gray-600 mt-1">{{ $word->definition }}</p>
-
-                        @if ($word->examples)
-                            <p class="mt-2 text-sm text-gray-500"><strong>Example:</strong> {{ $word->examples }}</p>
-                        @endif
-
-                        @if ($word->idioms)
-                            <p class="mt-2 text-sm text-gray-500"><strong>Idiom:</strong> {{ $word->idioms }}</p>
-                        @endif
-
-                        @if ($word->image)
-                            <div class="mt-3">
-                                <img src="{{ asset(`storage/` . $word->image) }}" alt="{{ $word->name }}" class="w-32 rounded">
-                            </div>
-                        @endif
+                        <a href="{{ route('words.show', $word->id) }}"
+                            class="px-3 py-1 bg-blue-400 text-white rounded-lg hover:bg-blue-600 transition cursor-pointer">
+                            Show
+                        </a>
                     </div>
                 @endforeach
             </div>
         @endif
     </div>
 </x-layout>
-

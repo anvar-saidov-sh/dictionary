@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Words;
+use Doctrine\Inflector\Rules\Word;
 use Illuminate\Http\Request;
 
 class WordsController extends Controller
@@ -50,6 +51,9 @@ class WordsController extends Controller
 
         $words = Words::whereRaw('LOWER(name) LIKE ?', [strtolower($letter) . '%'])->get();
         return view('words.show', compact('letter', 'words'));
+    }
+    public function review(Word $word){
+        return view('words.review', compact('word'));
     }
     public function edit(Request $request)
     {

@@ -26,6 +26,7 @@ Route::middleware('auth:student')->group(function () {
         return view('students.dashboard', compact('user', 'words'));
     })->name('dashboard');
     Route::get('/words/{letter}/{word}', [WordsController::class, 'edit'])->name('words.edit');
+    Route::get('/words/{word}', [WordsController::class, 'review'])->name('words.review');
     Route::get('/words/{letter}/{word}', 'WordsController@destroy')->name('words.destroy');
     Route::get('/profile', [StudentController::class, 'show'])->name('students.index');
     Route::get('/words', [WordsController::class, 'index'])->name('index');
