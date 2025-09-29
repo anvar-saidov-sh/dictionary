@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('words', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('definition');
-            $table->string('examples')->nullable();
-            $table->string('idioms')->nullable();
+            $table->text('definition');
+            $table->text('examples')->nullable();
+            $table->text('idioms')->nullable();
             $table->string('image')->nullable(); //upload_id
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
