@@ -3,7 +3,6 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-6">
             Words starting with: <span class="text-indigo-600">{{ strtoupper($letter) }}</span>
         </h1>
-
         @if ($words->isEmpty())
             <p class="text-gray-500">No words found for this letter.</p>
         @else
@@ -23,7 +22,7 @@
 
                         @if ($word->image)
                             <div class="mt-3">
-                                <img src="{{ asset('storage/' . $word->image) }}" alt="{{ $word->name }}" class="w-32 rounded">
+                                <img src="{{ asset(`storage/` . $word->image) }}" alt="{{ $word->name }}" class="w-32 rounded">
                             </div>
                         @endif
                     </div>
