@@ -41,6 +41,10 @@
                class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-t-lg">
               Profile
             </a>
+            <a href="{{ route('dashboard') }}"
+               class="block px-4 py-2 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-t-lg">
+              Dashboard
+            </a>
             <form action="{{ route('logout') }}" method="POST">
               @csrf
               <button type="submit"
