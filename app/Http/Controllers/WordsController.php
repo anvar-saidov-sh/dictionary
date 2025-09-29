@@ -31,25 +31,24 @@ class WordsController extends Controller
             $validated['image'] = $request->file('image')->store('words', 'public');
         }
 
-        auth()->guard()->user()->words()->create($validated);
+        $student = auth()->guard('student')->user();
+        $student->words()->create($validated);
 
         return redirect()->route('index')->with('success', 'Word created successfully!');
     }
 
-public function show($char)
-{
-    $map = [
-        'o-' => 'Oʻ',
-        'g-' => 'Gʻ',
-        'sh' => 'Sh',
-        'ch' => 'Ch',
-    ];
+    public function show($char)
+    {
+        $map = [
+            'o-' => 'Oʻ',
+            'g-' => 'Gʻ',
+            'sh' => 'Sh',
+            'ch' => 'Ch',
+        ];
 
-    $letter = $map[$char] ?? strtoupper($char);
+        $letter = $map[$char] ?? strtoupper($char);
 
-    $words = Words::where('name', 'LIKE', $letter . `%`)->get();
-
-    return view('words.show', compact('letter', 'words'));
-}
-
+        $words = Words::whereRaw('LOWER(name) LIKE ?', [strtolower($letter) . '%'])->get();
+        return view('words.show', compact('letter', 'words'));
+    }
 }
