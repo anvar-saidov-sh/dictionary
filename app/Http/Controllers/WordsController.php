@@ -51,4 +51,12 @@ class WordsController extends Controller
         $words = Words::whereRaw('LOWER(name) LIKE ?', [strtolower($letter) . '%'])->get();
         return view('words.show', compact('letter', 'words'));
     }
+    public function edit(Request $request)
+    {
+        return view('words.edit');
+    }
+    public function destroy(Request $request)
+    {
+        return view('words.edit');
+    }
 }
