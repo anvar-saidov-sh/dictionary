@@ -17,11 +17,43 @@
                 </a>
             </div>
 
-            <form action="{{ route('logout') }}" method="post" class="mt-4">
+            {{-- User's Words Section --}}
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Your Words</h2>
+
+            @if ($words->count() > 0)
+                <ul class="space-y-4">
+                    @foreach ($words as $word)
+                        <li class="flex justify-between items-center p-3 bg-gray-50 rounded-lg border">
+                            <span class="text-gray-800 font-medium">{{ $word->name }}</span>
+
+                            <div class="flex gap-2 items-center"
+                                <a href="{{  route('words.edit', parameters: $word->id) }}"
+                                    class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition">
+                                    Edit
+                                </a>
+
+                                <form action="{{ route('words.destroy', $word->id) }}" method="POST"
+                                    onsubmit="return confirm('Are you sure you want to delete this word?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <p class="text-gray-500">You haven’t created any words yet.</p>
+            @endif
+
+            <form action="{{ route('logout') }}" method="post" class="mt-6">
                 @csrf
                 <button type="submit"
                     class="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition">
-                     Logout
+                    Logout
                 </button>
             </form>
         </div>
