@@ -20,7 +20,13 @@ Route::post('/login', [StudentController::class, 'login']);
 Route::post('/logout', [StudentController::class, 'logout'])->name('logout');
 
 Route::middleware('auth:student')->group(function () {
-    Route::get('/dashboard', [StudentController::class,'dashboard'])->name('dashboard');
+    Route::get('/dashboard', function () {
+        $user = auth()->guard('student')->user();
+        $words = $user->words()->latest()->get();
+        return view('students.dashboard', compact('user', 'words'));
+    })->name('dashboard');
+    Route::get('/words/{letter}/{word}', [WordsController::class, 'edit'])->name('words.edit');
+    Route::get('/words/{letter}/{word}', 'WordsController@destroy')->name('words.destroy');
     Route::get('/profile', [StudentController::class, 'show'])->name('students.index');
     Route::get('/words', [WordsController::class, 'index'])->name('index');
     Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
