@@ -31,7 +31,7 @@ class WordsController extends Controller
             $validated['image'] = $request->file('image')->store('words', 'public');
         }
 
-        Words::create($validated);
+        auth()->guard()->user()->words()->create($validated);
 
         return redirect()->route('index')->with('success', 'Word created successfully!');
     }
