@@ -15,8 +15,13 @@ class StudentController extends Controller
     }
     public function dashboard()
     {
-        return view('students.dashboard');
+        $user = auth()->guard('student')->user();
+
+        $words = $user->words()->latest()->get();
+
+        return view('students.dashboard', compact('user', 'words'));
     }
+
     public function show()
     {
         $user = auth()->guard()->user();
