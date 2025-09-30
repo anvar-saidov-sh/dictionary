@@ -1,6 +1,6 @@
 <x-layout>
     <div class="max-w-3xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
-        <h1 class="text-2xl font-bold text-indigo-700 mb-6">Edit Word</h1>
+        <h1 class="text-2xl font-bold text-indigo-700 mb-6">Edit Word Details</h1>
 
         @if ($errors->any())
             <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
@@ -12,15 +12,14 @@
             </div>
         @endif
 
-        <form action="{{ route('words.update', [$word->id]) }}" method="POST" enctype="multipart/form-data"
+        <form action="{{ route('words.update', [$letter, $word->id]) }}" method="POST" enctype="multipart/form-data"
             class="space-y-4">
             @csrf
             @method('PUT')
 
             <div>
                 <label class="block text-gray-700 font-medium">Word:</label>
-                <input type="text" name="name" value="{{ old('name', $word->name) }}"
-                    class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-indigo-200" required>
+                <p class="w-full border border-gray-100 bg-gray-100 rounded-lg p-2 font-bold capitalize" >{{ $word->name }}</p>
             </div>
 
             <div>
