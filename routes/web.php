@@ -25,9 +25,9 @@ Route::middleware('auth:student')->group(function () {
         $words = $user->words()->latest()->get();
         return view('students.dashboard', compact('user', 'words'));
     })->name('dashboard');
-    Route::get('/words/{letter}/{word}', [WordsController::class, 'edit'])->name('words.edit');
-    Route::get('/words/{word}', [WordsController::class, 'review'])->name('words.review');
-    Route::get('/words/{letter}/{word}', 'WordsController@destroy')->name('words.destroy');
+    Route::get('/words/{letter}/{word}/edit', [WordsController::class, 'edit'])->name('words.edit');
+    Route::get('/words/{letter}/{word}', [WordsController::class, 'review'])->name('words.review');
+    Route::delete('/words/{letter}/{word}', [WordsController::class, 'destroy'])->name('words.destroy');
     Route::get('/profile', [StudentController::class, 'show'])->name('students.index');
     Route::get('/words', [WordsController::class, 'index'])->name('index');
     Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
