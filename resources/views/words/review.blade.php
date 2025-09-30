@@ -3,27 +3,29 @@
         <h1 class="text-3xl font-bold text-indigo-700 mb-4">{{ $word->name }}</h1>
 
         <p class="text-gray-700 mb-6">
-            <span class="font-semibold">Author:</span> {{ $word->user->name ?? 'Unknown' }}
+            <span class="font-semibold">Author:</span> {{ $word->student->name ?? 'Unknown' }}
         </p>
 
         <div class="flex gap-3">
-            <a href=""
-               class="px-4 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition">
-                Edit
-            </a>
+            @if ($word->student_id === auth()->id())
+                <a href="{{ route('words.edit', [$letter, $word->id]) }}"
+                    class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition">
+                    Edit
+                </a>
 
-            <form action="" method="POST"
-                  onsubmit="return confirm('Are you sure you want to delete this word?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                        class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
-                    Delete
-                </button>
-            </form>
+                <form action="{{ route('words.destroy', [$letter, $word->id]) }}" method="POST" class="inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+                        onclick="return confirm('Are you sure?')">
+                        Delete
+                    </button>
+                </form>
+            @endif
 
             <a href="{{ url()->previous() }}"
-               class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
+                class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
                 Back
             </a>
         </div>
