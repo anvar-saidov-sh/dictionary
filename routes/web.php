@@ -25,12 +25,15 @@ Route::middleware('auth:student')->group(function () {
         $words = $user->words()->latest()->get();
         return view('students.dashboard', compact('user', 'words'));
     })->name('dashboard');
-    Route::get('/words/{letter}/{word}/edit', [WordsController::class, 'edit'])->name('words.edit');
-    Route::get('/words/{letter}/{word}', [WordsController::class, 'review'])->name('words.review');
-    Route::delete('/words/{letter}/{word}', [WordsController::class, 'destroy'])->name('words.destroy');
+
+    Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show'); // by letter
     Route::get('/profile', [StudentController::class, 'show'])->name('students.index');
+    Route::get('/words/{letter}/{word}/review', [WordsController::class, 'review'])->name('words.review');
+    Route::get('/words/{letter}/{word}/edit', [WordsController::class, 'edit'])->name('words.edit');
+    Route::put('/words/{letter}/{word}', [WordsController::class, 'update'])->name('words.update');
+    Route::delete('/words/{letter}/{word}', [WordsController::class, 'destroy'])->name('words.destroy');
+
     Route::get('/words', [WordsController::class, 'index'])->name('index');
     Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
     Route::post('/words', [WordsController::class, 'store'])->name('words.store');
-    Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show');
 });
