@@ -23,16 +23,16 @@
                     @foreach ($words as $word)
                         <li class="flex justify-between items-center p-3 bg-gray-50 rounded-lg border">
                             <span class="text-gray-800 font-medium">{{ $word->name }}</span>
-
-                            {{-- href="{{  route('words.edit', parameters: $word->id) }}"
-                                action="{{ route('words.destroy', $word->id) }}" method="POST" --}}
-
-                            <div class="flex gap-2 items-center"
-                                <a class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition cursor-pointer">
-                                Edit
+                            <div class="flex gap-2 items-center">
+                                <a href="{{ route('words.edit', [strtoupper(substr($word->name, 0, 1)), $word->id]) }}"
+                                    class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition cursor-pointer">
+                                    Edit
                                 </a>
 
-                                <form onsubmit="return confirm('Are you sure you want to delete this word?')">
+                                <form
+                                    action="{{ route('words.destroy', [strtoupper(substr($word->name, 0, 1)), $word->id]) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Are you sure you want to delete this word?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
