@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('examples')->nullable();
             $table->text('idioms')->nullable();
             $table->string('image')->nullable(); //upload_id
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->timestamps();
         });
     }
