@@ -62,7 +62,7 @@ class WordsController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        return view('words.edit', compact('word'));
+        return view('words.edit', compact('letter', 'word'));
     }
 
     public function update($letter, Request $request, Words $word)
@@ -72,7 +72,6 @@ class WordsController extends Controller
         }
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
             'definition' => 'required|string|max:500',
             'examples' => 'nullable|string|max:1000',
             'idioms' => 'nullable|string|max:200',
