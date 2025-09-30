@@ -14,6 +14,7 @@ class Words extends Model
         'examples',
         'idioms',
         'image',
+        'student_id',
     ];
 
     public function student(){
