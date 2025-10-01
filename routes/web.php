@@ -8,16 +8,14 @@ use App\Http\Controllers\WordsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('students.dashboard');
 });
 
 
 Route::get('/register', [StudentController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [StudentController::class, 'register']);
-
 Route::get('/login', [StudentController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [StudentController::class, 'login']);
-
 Route::post('/logout', [StudentController::class, 'logout'])->name('logout');
 
 Route::middleware('auth:student')->group(function () {
@@ -25,8 +23,7 @@ Route::middleware('auth:student')->group(function () {
     Route::get('/words', [WordsController::class, 'index'])->name('index');
     Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
     Route::post('/words', [WordsController::class, 'store'])->name('words.store');
-
-    Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show'); // by letter
+    Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show');
     Route::get('/profile', [StudentController::class, 'show'])->name('students.index');
     Route::get('/words/{letter}/{word}/review', [WordsController::class, 'review'])->name('words.review');
     Route::get('/words/{letter}/{word}/edit', [WordsController::class, 'edit'])->name('words.edit');
