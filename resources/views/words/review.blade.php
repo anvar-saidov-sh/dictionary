@@ -22,7 +22,17 @@
                         Delete
                     </button>
                 </form>
+            @else
+                <form action="{{ route('words.request', [$letter, $word->id]) }}" method="POST" class="inline">
+                    @csrf
+                    <input type="hidden" name="message" value="I’d like to suggest changes to this word.">
+                    <button type="submit"
+                        class="px-3 py-1 bg-purple-400 text-white rounded-lg hover:bg-purple-500 transition">
+                        Request
+                    </button>
+                </form>
             @endif
+
 
             <a href="{{ url()->previous() }}"
                 class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition">
