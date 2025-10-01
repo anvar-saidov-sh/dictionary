@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\WordRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -13,14 +14,35 @@ class StudentController extends Controller
     {
         return view('students.register');
     }
-    public function dashboard()
-    {
-        $user = auth()->guard('student')->user();
+public function dashboard()
+{
+    $user = auth()->guard('student')->user();
 
-        $words = $user->words()->latest()->get();
+    $words = $user->words;
 
-        return view('students.dashboard', compact('user', 'words'));
-    }
+    $myRequests = WordRequest::with('word')
+        ->where('student_id', $user->id)
+        ->latest()
+        ->get();
+
+    $incomingRequests = WordRequest::with('word', 'student')
+        ->whereHas('word', function ($q) use ($user) {
+            $q->where('student_id', $user->id);
+        })
+        ->where('status', 'pending')
+        ->latest()
+        ->get();
+
+    return view('students.dashboard', compact(
+        'user',
+        'words',
+        'myRequests',
+        'incomingRequests',
+    ));
+}
+
+
+
 
     public function show()
     {
