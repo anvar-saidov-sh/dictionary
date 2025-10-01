@@ -14,36 +14,32 @@ class StudentController extends Controller
     {
         return view('students.register');
     }
-public function dashboard()
-{
-    $user = auth()->guard('student')->user();
+    public function dashboard()
+    {
+        $user = auth()->guard('student')->user();
 
-    $words = $user->words;
+        $words = $user->words;
 
-    $myRequests = WordRequest::with('word')
-        ->where('student_id', $user->id)
-        ->latest()
-        ->get();
+        $myRequests = WordRequest::with('word')
+            ->where('student_id', $user->id)
+            ->latest()
+            ->get();
 
-    $incomingRequests = WordRequest::with('word', 'student')
-        ->whereHas('word', function ($q) use ($user) {
-            $q->where('student_id', $user->id);
-        })
-        ->where('status', 'pending')
-        ->latest()
-        ->get();
+        $incomingRequests = WordRequest::with('word', 'student')
+            ->whereHas('word', function ($q) use ($user) {
+                $q->where('student_id', $user->id);
+            })
+            ->where('status', 'pending')
+            ->latest()
+            ->get();
 
-    return view('students.dashboard', compact(
-        'user',
-        'words',
-        'myRequests',
-        'incomingRequests',
-    ));
-}
-
-
-
-
+        return view('students.dashboard', compact(
+            'user',
+            'words',
+            'myRequests',
+            'incomingRequests',
+        ));
+    }
     public function show()
     {
         $user = auth()->guard()->user();
