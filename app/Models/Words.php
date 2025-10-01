@@ -20,4 +20,7 @@ class Words extends Model
     public function student(){
         return $this->belongsTo(Student::class, 'student_id');
     }
+    public function requests()  {
+        return $this->hasMany(WordRequest::class, 'student_id');
+    }
 }
