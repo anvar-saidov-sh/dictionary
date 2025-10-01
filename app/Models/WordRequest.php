@@ -11,7 +11,7 @@ class WordRequest extends Model
         'student_id',
         'message',
         'status',
-        'defition',
+        'definition',
         'examples',
         'idioms',
         'image',
@@ -19,11 +19,11 @@ class WordRequest extends Model
 
     public function word()
     {
-        return $this->belongsTo(Words::class);
+        return $this->belongsTo(Words::class, 'word_id');
     }
 
     public function student()
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsTo(Student::class, 'student_id');
     }
 }
