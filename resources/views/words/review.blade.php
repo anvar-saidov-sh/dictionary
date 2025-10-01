@@ -9,7 +9,7 @@
         <div class="flex gap-3">
             @if ($word->student_id === auth()->id())
                 <a href="{{ route('words.edit', [$letter, $word->id]) }}"
-                    class="px-3 py-1 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition">
+                    class="px-3 py-2 bg-yellow-400 text-white rounded-lg hover:bg-yellow-500 transition">
                     Edit
                 </a>
 
@@ -23,11 +23,10 @@
                     </button>
                 </form>
             @else
-                <form action="{{ route('words.request', [$letter, $word->id]) }}" method="POST" class="inline">
+                <form action="{{ route('words.requests.create', [$letter, $word->id]) }}" method="POST" class="inline">
                     @csrf
-                    <input type="hidden" name="message" value="I’d like to suggest changes to this word.">
                     <button type="submit"
-                        class="px-3 py-1 bg-purple-400 text-white rounded-lg hover:bg-purple-500 transition">
+                        class="px-3 py-2  bg-purple-400 text-white rounded-lg hover:bg-purple-500 transition">
                         Request
                     </button>
                 </form>
