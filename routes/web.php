@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\WordRequestController;
 use App\Http\Controllers\WordsController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,11 +29,13 @@ Route::middleware('auth:student')->group(function () {
     Route::get('/words', [WordsController::class, 'index'])->name('index');
     Route::get('/words/create', [WordsController::class, 'create'])->name('words.create');
     Route::post('/words', [WordsController::class, 'store'])->name('words.store');
-    
+
     Route::get('/words/{letter}', [WordsController::class, 'show'])->name('words.show'); // by letter
     Route::get('/profile', [StudentController::class, 'show'])->name('students.index');
     Route::get('/words/{letter}/{word}/review', [WordsController::class, 'review'])->name('words.review');
     Route::get('/words/{letter}/{word}/edit', [WordsController::class, 'edit'])->name('words.edit');
     Route::put('/words/{letter}/{word}', [WordsController::class, 'update'])->name('words.update');
     Route::delete('/words/{letter}/{word}', [WordsController::class, 'destroy'])->name('words.destroy');
+    Route::get('/words/{letter}/{word}/request', [WordRequestController::class, 'create'])->name('words.requests.create');
+    Route::post('/words/{letter}/{word}/request', [WordRequestController::class, 'store'])->name('words.requests.store');
 });
