@@ -21,6 +21,12 @@
                     class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5">
                 Login
             </button>
+            <p class="text-sm text-center text-gray-600">
+                No account?
+                <a href="{{ route('register') }}" class="text-green-600 hover:text-green-700 font-medium">
+                    Register
+                </a>
+            </p>
         </form>
     </div>
 </x-layout>
