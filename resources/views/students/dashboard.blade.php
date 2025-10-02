@@ -91,7 +91,6 @@
                             @if ($req->idioms)
                                 <p class="text-sm text-gray-600">Suggested Idiom: {{ $req->idioms }}</p>
                             @endif
-
                             <div class="flex gap-2 mt-2">
                                 <form action="{{ route('requests.approve', $req->id) }}" method="POST">
                                     @csrf
@@ -114,7 +113,6 @@
             @else
                 <p class="text-gray-500">No one has requested changes to your words yet.</p>
             @endif
-
             <form action="{{ route('logout') }}" method="post" class="mt-6">
                 @csrf
                 <button type="submit"
