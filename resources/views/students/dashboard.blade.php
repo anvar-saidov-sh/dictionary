@@ -26,6 +26,14 @@
                     class="px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition">
                     Words List
                 </a>
+                <button onclick="toggleModal('myRequestsModal')"
+                    class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">
+                    My Requests
+                </button>
+                <button onclick="toggleModal('incomingRequestsModal')"
+                    class="px-4 py-2 bg-purple-500 text-white rounded-lg shadow hover:bg-purple-600 transition">
+                    Requests on My Words
+                </button>
             </div>
 
             <h2 class="text-xl font-semibold text-gray-700 mb-4">Your Words</h2>
@@ -58,7 +66,22 @@
                 <p class="text-gray-500 mb-8">You haven’t created any words yet.</p>
             @endif
 
-            <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Requests You Made</h2>
+            <form action="{{ route('logout') }}" method="post" class="mt-6">
+                @csrf
+                <button type="submit"
+                    class="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition">
+                    Logout
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <div id="myRequestsModal"
+        class="fixed inset-0 bg-blur bg-opacity-50 hidden backdrop-blur-[3px] items-center justify-center ">
+        <div class="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg relative">
+            <button onclick="toggleModal('myRequestsModal')"
+                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-5xl cursor-pointer">&times;</button>
+            <h2 class="text-xl font-semibold mb-4">Requests You Made</h2>
             @if ($myRequests->count())
                 <ul class="space-y-4">
                     @foreach ($myRequests as $req)
@@ -68,14 +91,27 @@
                                 Status: <span class="italic">{{ $req->status }}</span>
                             </p>
                             <p class="text-sm text-gray-600">Definition: {{ $req->definition }}</p>
+                            @if ($req->examples)
+                                <p class="text-sm text-gray-600">Example: {{ $req->examples }}</p>
+                            @endif
+                            @if ($req->idioms)
+                                <p class="text-sm text-gray-600">Idiom: {{ $req->idioms }}</p>
+                            @endif
                         </li>
                     @endforeach
                 </ul>
             @else
                 <p class="text-gray-500">You haven’t made any requests yet.</p>
             @endif
+        </div>
+    </div>
 
-            <h2 class="text-xl font-semibold text-gray-700 mt-8 mb-4">Requests On Your Words</h2>
+    <div id="incomingRequestsModal"
+        class="fixed inset-0 bg-blur bg-opacity-50 hidden backdrop-blur-[3px] items-center justify-center">
+        <div class="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg relative">
+            <button onclick="toggleModal('incomingRequestsModal')"
+                class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-5xl cursor-pointer">&times;</button>
+            <h2 class="text-xl font-semibold mb-4">Requests On Your Words</h2>
             @if ($incomingRequests->count())
                 <ul class="space-y-4">
                     @foreach ($incomingRequests as $req)
@@ -84,12 +120,12 @@
                                 Request by <span class="font-bold">{{ $req->student->name ?? 'Unknown' }}</span>
                                 for your word <span class="font-bold">{{ $req->word->name ?? 'Deleted Word' }}</span>
                             </p>
-                            <p class="text-sm text-gray-600">Suggested Definition: {{ $req->definition }}</p>
+                            <p class="text-sm text-gray-600">Definition: {{ $req->definition }}</p>
                             @if ($req->examples)
-                                <p class="text-sm text-gray-600">Suggested Example: {{ $req->examples }}</p>
+                                <p class="text-sm text-gray-600">Example: {{ $req->examples }}</p>
                             @endif
                             @if ($req->idioms)
-                                <p class="text-sm text-gray-600">Suggested Idiom: {{ $req->idioms }}</p>
+                                <p class="text-sm text-gray-600">Idiom: {{ $req->idioms }}</p>
                             @endif
                             <div class="flex gap-2 mt-2">
                                 <form action="{{ route('requests.approve', $req->id) }}" method="POST">
@@ -113,13 +149,19 @@
             @else
                 <p class="text-gray-500">No one has requested changes to your words yet.</p>
             @endif
-            <form action="{{ route('logout') }}" method="post" class="mt-6">
-                @csrf
-                <button type="submit"
-                    class="px-4 py-2 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 transition">
-                    Logout
-                </button>
-            </form>
         </div>
-    </section>
+    </div>
+
+    <script>
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }
+        }
+    </script>
 </x-layout>
