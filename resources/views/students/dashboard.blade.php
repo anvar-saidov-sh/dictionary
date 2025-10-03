@@ -10,7 +10,6 @@
             {{ session('info') }}
         </div>
     @endif
-
     <section class="bg-gray-100 min-h-screen flex items-center justify-center">
         <div class="w-full max-w-3xl bg-white shadow-lg rounded-xl p-6">
             <h1 class="text-2xl font-bold text-gray-800 mb-6">
@@ -75,7 +74,6 @@
             </form>
         </div>
     </section>
-
     <div id="myRequestsModal"
         class="fixed inset-0 bg-blur bg-opacity-50 hidden backdrop-blur-[3px] items-center justify-center ">
         <div class="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg relative">
@@ -105,7 +103,6 @@
             @endif
         </div>
     </div>
-
     <div id="incomingRequestsModal"
         class="fixed inset-0 bg-blur bg-opacity-50 hidden backdrop-blur-[3px] items-center justify-center">
         <div class="bg-white w-full max-w-2xl p-6 rounded-lg shadow-lg relative">
@@ -151,7 +148,6 @@
             @endif
         </div>
     </div>
-
     <script>
         function toggleModal(id) {
             const modal = document.getElementById(id);
