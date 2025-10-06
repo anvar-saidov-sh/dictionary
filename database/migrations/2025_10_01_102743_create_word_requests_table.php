@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('word_requests', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('word_id')->constrained('words')->onDelete('cascade');
-            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
-            $table->text('message')->nullable();
-            $table->string('status')->default('pending');
-            $table->text('definition');
-            $table->text('examples')->nullable();
-            $table->text('idioms')->nullable();
-            $table->string('image')->nullable();
-            $table->timestamps();
+        Schema::table('word_requests', function (Blueprint $table) {
+            $table->enum('status', [
+                'pending_owner',
+                'pending_scholar',
+                'approved',
+                'rejected'
+            ])->default('pending_owner')->change();
+            $table->foreignId('scholar_id')->nullable()->constrained('scholars')->onDelete('set null');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('word_requests');
+        Schema::table('word_requests', function (Blueprint $table) {
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending')->change();
+            $table->dropConstrainedForeignId('scholar_id');
+        });
     }
 };
