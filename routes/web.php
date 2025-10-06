@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ScholarsController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\WordRequestController;
 use App\Http\Controllers\WordsController;
@@ -38,3 +39,11 @@ Route::middleware('auth:scholar')->group(function () {
     Route::post('/scholar/requests/{id}/approve', [WordRequestController::class, 'approveByScholar'])->name('scholar.requests.approve');
     Route::post('/scholar/requests/{id}/reject', [WordRequestController::class, 'rejectByScholar'])->name('scholar.requests.reject');
 });
+Route::prefix('scholars')->group(function () {
+    Route::get('login', [ScholarsController::class, 'showLoginForm'])->name('scholar.login');
+    Route::post('login', [ScholarsController::class, 'login']);
+    Route::get('dashboard', [ScholarsController::class, 'dashboard'])->name('scholar.dashboard');
+    Route::post('approve/{id}', [ScholarsController::class, 'approve'])->name('scholar.approve');
+    Route::post('reject/{id}', [ScholarsController::class, 'reject'])->name('scholar.reject');
+});
+
