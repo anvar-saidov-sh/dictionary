@@ -15,8 +15,8 @@ class ScholarsController extends Controller
         $pendingWords = Words::where('status', 'approved_by_owner')
             ->where('verified_by_scholar', false)
             ->get();
-
-        return view('scholars.dashboard', compact('pendingWords'));
+        $scholar = Auth::guard('scholar')->user();
+        return view('scholars.dashboard', compact('scholar','pendingWords'));
     }
 
     public function approve($id)
