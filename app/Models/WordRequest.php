@@ -15,15 +15,21 @@ class WordRequest extends Model
         'examples',
         'idioms',
         'image',
+        'scholar_id',
     ];
 
     public function word()
     {
-        return $this->belongsTo(Words::class, 'word_id');
+        return $this->belongsTo(Words::class);
     }
 
     public function student()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Student::class);
+    }
+
+    public function scholar()
+    {
+        return $this->belongsTo(Scholars::class);
     }
 }
