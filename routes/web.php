@@ -42,6 +42,7 @@ Route::middleware('auth:scholar')->group(function () {
 Route::prefix('scholars')->group(function () {
     Route::get('login', [ScholarsController::class, 'showLoginForm'])->name('scholar.login');
     Route::post('login', [ScholarsController::class, 'login']);
+    Route::post('logout', [ScholarsController::class, 'logout'])->name('scholar.logout');
     Route::get('dashboard', [ScholarsController::class, 'dashboard'])->name('scholar.dashboard');
     Route::post('approve/{id}', [ScholarsController::class, 'approve'])->name('scholar.approve');
     Route::post('reject/{id}', [ScholarsController::class, 'reject'])->name('scholar.reject');
