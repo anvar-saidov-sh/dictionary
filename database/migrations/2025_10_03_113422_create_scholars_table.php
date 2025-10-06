@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -19,6 +21,14 @@ return new class extends Migration {
             $table->boolean('verified_by_scholar')->default(false);
             $table->foreignId('approved_by_scholar')->nullable()->constrained('scholars')->onDelete('set null');
         });
+
+        DB::table('scholars')->insert([
+            'name' => 'admin',
+            'email' => 'admin@scholars.com',
+            'password' => Hash::make('admin123'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     public function down(): void
