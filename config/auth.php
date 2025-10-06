@@ -17,9 +17,9 @@ return [
             'driver' => 'session',
             'provider' => 'students',
         ],
-        'professor' => [
+        'scholar' => [
             'driver' => 'session',
-            'provider' => 'professor'
+            'provider' => 'scholar',
         ]
     ],
 
@@ -33,9 +33,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
         ],
-        'professor' => [
+        'scholar' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Professor::class,
+            'model' => App\Models\Scholars::class,
         ]
     ],
 
