@@ -34,3 +34,7 @@ Route::middleware('auth:student')->group(function () {
     Route::post('/requests/{id}/approve', [WordRequestController::class, 'approve'])->name('requests.approve');
     Route::post('/requests/{id}/reject', [WordRequestController::class, 'reject'])->name('requests.reject');
 });
+Route::middleware('auth:scholar')->group(function () {
+    Route::post('/scholar/requests/{id}/approve', [WordRequestController::class, 'approveByScholar'])->name('scholar.requests.approve');
+    Route::post('/scholar/requests/{id}/reject', [WordRequestController::class, 'rejectByScholar'])->name('scholar.requests.reject');
+});
