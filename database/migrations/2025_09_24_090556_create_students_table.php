@@ -28,6 +28,13 @@ return new class extends Migration
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        DB::table('students')->insert([
+            'name' => 'John Doe',
+            'email' => 'doe@gmail.com',
+            'password' => Hash::make('12345678'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
