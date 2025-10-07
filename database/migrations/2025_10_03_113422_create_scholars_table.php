@@ -18,7 +18,8 @@ return new class extends Migration {
         });
 
         Schema::table('words', function (Blueprint $table) {
-            $table->boolean('verified_by_scholar')->default(false);
+            $table->boolean('verified')->default(false);
+            $table->boolean('rejected')->default(null);
         });
 
         DB::table('scholars')->insert([
@@ -33,7 +34,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('words', function (Blueprint $table) {
-            $table->dropColumn('verified_by_scholar');
+            $table->dropColumn(['verified', 'rejected']);
         });
 
         Schema::dropIfExists('scholars');
