@@ -15,12 +15,15 @@ class Words extends Model
         'idioms',
         'image',
         'student_id',
+        'verified_by_scholar',
     ];
 
-    public function student(){
+    public function student()
+    {
         return $this->belongsTo(Student::class, 'student_id');
     }
-    public function requests()  {
+    public function requests()
+    {
         return $this->hasMany(WordRequest::class, 'student_id');
     }
 }
