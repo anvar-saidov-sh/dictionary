@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->text('examples')->nullable();
             $table->text('idioms')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('approved_by_owner')->default(false);
             $table->timestamps();
         });
     }
