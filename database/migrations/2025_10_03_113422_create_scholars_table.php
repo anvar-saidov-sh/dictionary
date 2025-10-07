@@ -19,7 +19,7 @@ return new class extends Migration {
 
         Schema::table('words', function (Blueprint $table) {
             $table->boolean('verified')->default(false);
-            $table->boolean('rejected')->default(null);
+            $table->boolean('rejected')->nullable(true);
         });
 
         DB::table('scholars')->insert([
