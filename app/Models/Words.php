@@ -15,7 +15,8 @@ class Words extends Model
         'idioms',
         'image',
         'student_id',
-        'verified_by_scholar',
+        'verified',
+        'rejected',
     ];
 
     public function student()
