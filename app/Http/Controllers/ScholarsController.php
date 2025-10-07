@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Scholars;
+use App\Models\WordRequest;
 use App\Models\Words;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +14,23 @@ class ScholarsController extends Controller
     public function dashboard()
     {
         $scholar = auth()->guard('scholar')->user();
-        $pendingWords = Words::where('verified_by_scholar', false)
-            ->latest()
-            ->get();
+        $pendingWords = Words::where('verified', false)
+            ->oldest()->paginate(10);
 
-        $reviewedWords = Words::where('verified_by_scholar', true)
-            ->latest()
-            ->get();
+        $reviewedWords = Words::where('verified', true)
+            ->oldest()->paginate(10);
 
-        return view('scholars.dashboard', compact('scholar', 'pendingWords', 'reviewedWords'));
+        $pendingRequests = WordRequest::where('verified', false)
+            ->oldest()->paginate(10);
+
+        $reviewedRequests = WordRequest::where('verified', true)
+            ->oldest()->paginate(10);
+        return view('scholars.dashboard', compact(
+            'scholar',
+            'pendingWords',
+             'reviewedWords',
+            'pendingRequests',
+            'reviewedRequests'));
     }
 
     public function approve($id)
