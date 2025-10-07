@@ -17,6 +17,9 @@ class WordRequest extends Model
         'image',
         'scholar_id',
         'approved_by_owner',
+        'rejected_by_owner',
+        'approved_by_scholar',
+        'rejected_by_scholar',
     ];
 
     public function word()
