@@ -3,7 +3,7 @@
         <div class="p-8">
             <h1 class="text-2xl font-bold mb-4">Welcome, {{ $scholar->name }}</h1>
 
-            <h2 class="text-xl font-semibold mt-6 mb-2">🕒 Pending Word Approvals</h2>
+            <h2 class="text-xl font-semibold mt-6 mb-2 flex gap-1"><x-heroicon-o-clock class="w-[24px] aspect-square" />Pending Word Approvals</h2>
 
             @if ($pendingWords->isEmpty())
                 <p class="text-gray-600">No pending words to review.</p>
