@@ -14,7 +14,7 @@
                             <h3 class="text-lg font-semibold">{{ $word->name }}</h3>
                             <p class="text-gray-700">{{ $word->definition }}</p>
                             <p class="text-sm text-gray-500 mt-1">Created by: {{ $word->student->name }}</p>
-                            
+
                             <div class="flex gap-3 mt-3">
                                 <form method="POST" action="{{ route('scholar.approve', $word->id) }}">
                                     @csrf
@@ -23,6 +23,34 @@
                                     </button>
                                 </form>
                                 <form method="POST" action="{{ route('scholar.reject', $word->id) }}">
+                                    @csrf
+                                    <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                                        Reject
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            @if ($pendingRequests->isEmpty())
+                <p class="text-gray-600">No pending word requests to review.</p>
+            @else
+                <div class="space-y-4">
+                    @foreach ($pendingRequests as $word)
+                        <div class="p-4 border rounded-lg bg-white shadow-sm">
+                            <h3 class="text-lg font-semibold">{{ $wordRequest->name }}</h3>
+                            <p class="text-gray-700">{{ $wordRequest->definition }}</p>
+                            <p class="text-sm text-gray-500 mt-1">Created by: {{ $word->student->name }}</p>
+
+                            <div class="flex gap-3 mt-3">
+                                <form method="POST" action="{{ route('scholar.approve', $wordRequest->id) }}">
+                                    @csrf
+                                    <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                                        Approve
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ route('scholar.reject', $wordRequest->id) }}">
                                     @csrf
                                     <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
                                         Reject
