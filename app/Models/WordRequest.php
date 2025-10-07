@@ -16,6 +16,7 @@ class WordRequest extends Model
         'idioms',
         'image',
         'scholar_id',
+        'approved_by_owner',
     ];
 
     public function word()
