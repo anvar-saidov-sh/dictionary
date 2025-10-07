@@ -13,7 +13,8 @@
                         <div class="p-4 border rounded-lg bg-white shadow-sm">
                             <h3 class="text-lg font-semibold">{{ $word->name }}</h3>
                             <p class="text-gray-700">{{ $word->definition }}</p>
-
+                            <p class="text-sm text-gray-500 mt-1">Created by: {{ $word->student->name }}</p>
+                            
                             <div class="flex gap-3 mt-3">
                                 <form method="POST" action="{{ route('scholar.approve', $word->id) }}">
                                     @csrf
