@@ -12,11 +12,16 @@ class ScholarsController extends Controller
 {
     public function dashboard()
     {
-        $pendingWords = Words::where('status', 'approved_by_owner')
-            ->where('verified_by_scholar', false)
+        $scholar = auth()->guard('scholar')->user();
+        $pendingWords = Words::where('verified_by_scholar', false)
+            ->latest()
             ->get();
-        $scholar = Auth::guard('scholar')->user();
-        return view('scholars.dashboard', compact('scholar','pendingWords'));
+
+        $reviewedWords = Words::where('verified_by_scholar', true)
+            ->latest()
+            ->get();
+
+        return view('scholars.dashboard', compact('scholar', 'pendingWords', 'reviewedWords'));
     }
 
     public function approve($id)
@@ -38,6 +43,8 @@ class ScholarsController extends Controller
 
         return back()->with('error', 'Word rejected by Scholar.');
     }
+
+
 
     public function showLoginForm()
     {
