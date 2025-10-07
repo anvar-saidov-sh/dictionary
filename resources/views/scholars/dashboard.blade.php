@@ -1,18 +1,37 @@
 <x-navfooter>
     <section class="min-h-screen flex items-center justify-center bg-gray-100">
-        <div class="bg-white p-6 rounded-xl shadow-md w-full max-w-2xl">
-            <h1 class="text-2xl font-bold mb-4 text-indigo-600">
-                Welcome, {{ $scholar->name }}
-            </h1>
-            <p class="text-gray-700 mb-6">You are logged in as a scholar.</p>
+        <div class="p-8">
+            <h1 class="text-2xl font-bold mb-4">Welcome, {{ $scholar->name }}</h1>
 
-            <form action="{{ route('scholar.logout') }}" method="POST">
-                @csrf
-                <button type="submit"
-                    class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
-                    Logout
-                </button>
-            </form>
+            <h2 class="text-xl font-semibold mt-6 mb-2">🕒 Pending Word Approvals</h2>
+
+            @if ($pendingWords->isEmpty())
+                <p class="text-gray-600">No pending words to review.</p>
+            @else
+                <div class="space-y-4">
+                    @foreach ($pendingWords as $word)
+                        <div class="p-4 border rounded-lg bg-white shadow-sm">
+                            <h3 class="text-lg font-semibold">{{ $word->name }}</h3>
+                            <p class="text-gray-700">{{ $word->definition }}</p>
+
+                            <div class="flex gap-3 mt-3">
+                                <form method="POST" action="{{ route('scholar.approve', $word->id) }}">
+                                    @csrf
+                                    <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                                        Approve
+                                    </button>
+                                </form>
+                                <form method="POST" action="{{ route('scholar.reject', $word->id) }}">
+                                    @csrf
+                                    <button class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                                        Reject
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </section>
 </x-navfooter>
