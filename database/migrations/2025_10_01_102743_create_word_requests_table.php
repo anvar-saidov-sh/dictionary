@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->text('idioms')->nullable();
             $table->string('image')->nullable();
             $table->boolean('approved_by_owner')->default(false);
+            $table->boolean('rejected_by_owner')->default(null);
             $table->timestamps();
         });
     }
