@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Words extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'definition',
@@ -19,12 +20,19 @@ class Words extends Model
         'rejected',
     ];
 
+
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
+
     public function requests()
     {
-        return $this->hasMany(WordRequest::class, 'student_id');
+        return $this->hasMany(WordRequest::class, 'word_id');
+    }
+
+    public function scholar()
+    {
+        return $this->belongsTo(Scholars::class, 'approved_by_scholar')->withDefault();
     }
 }
