@@ -27,7 +27,7 @@ class WordsController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        $validated['student_id'] = auth()->guard()->id();
+        $validated['student_id'] = auth()->guard('student')->id();
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('words', 'public');
@@ -37,6 +37,7 @@ class WordsController extends Controller
 
         return redirect()->route('index')->with('success', 'Word created successfully!');
     }
+
     public function show($char)
     {
         $map = [
@@ -47,18 +48,19 @@ class WordsController extends Controller
         ];
 
         $letter = $map[$char] ?? strtoupper($char);
-
         $words = Words::whereRaw('LOWER(name) LIKE ?', [strtolower($letter) . '%'])->get();
+
         return view('words.show', compact('letter', 'words'));
     }
+
     public function review($letter, Words $word)
     {
-        return view('words.review', compact('letter','word'));
+        return view('words.review', compact('letter', 'word'));
     }
 
     public function edit($letter, Words $word)
     {
-        if ($word->student_id !== auth()->guard()->id()) {
+        if ($word->student_id !== auth()->guard('student')->id()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -67,7 +69,7 @@ class WordsController extends Controller
 
     public function update($letter, Request $request, Words $word)
     {
-        if ($word->student_id !== auth()->guard()->id()) {
+        if ($word->student_id !== auth()->guard('student')->id()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -89,7 +91,7 @@ class WordsController extends Controller
 
     public function destroy($letter, Words $word)
     {
-        if ($word->student_id !== auth()->guard()->id()) {
+        if ($word->student_id !== auth()->guard('student')->id()) {
             abort(403, 'Unauthorized action.');
         }
 
