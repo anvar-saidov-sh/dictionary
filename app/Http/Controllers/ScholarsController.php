@@ -20,10 +20,10 @@ class ScholarsController extends Controller
         $reviewedWords = Words::where('verified', true)
             ->oldest()->paginate(10);
 
-        $pendingRequests = WordRequest::where('verified', false)
+        $pendingRequests = WordRequest::where('rejected_by_owner', false)
             ->oldest()->paginate(10);
 
-        $reviewedRequests = WordRequest::where('verified', true)
+        $reviewedRequests = WordRequest::where('approved_by_owner', true)
             ->oldest()->paginate(10);
         return view('scholars.dashboard', compact(
             'scholar',
