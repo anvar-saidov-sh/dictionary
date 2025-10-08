@@ -28,7 +28,7 @@ class ScholarsController extends Controller
         return view('scholars.dashboard', compact(
             'scholar',
             'pendingWords',
-             'reviewedWords',
+            'reviewedWords',
             'pendingRequests',
             'reviewedRequests'));
     }
