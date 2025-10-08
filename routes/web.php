@@ -39,16 +39,15 @@ Route::middleware('auth:scholar')->group(function () {
     Route::post('/scholar/requests/{id}/approve', [WordRequestController::class, 'approveByScholar'])->name('scholar.requests.approve');
     Route::post('/scholar/requests/{id}/reject', [WordRequestController::class, 'rejectByScholar'])->name('scholar.requests.reject');
 });
-Route::prefix('scholars')->group(function () {
+Route::prefix('scholar')->group(function () {
     Route::get('login', [ScholarsController::class, 'showLoginForm'])->name('scholar.login');
     Route::post('login', [ScholarsController::class, 'login']);
     Route::post('logout', [ScholarsController::class, 'logout'])->name('scholar.logout');
     Route::post('approve/{id}', [ScholarsController::class, 'approve'])->name('scholar.approve');
     Route::post('reject/{id}', [ScholarsController::class, 'reject'])->name('scholar.reject');
+     Route::get('/dashboard', [ScholarsController::class, 'dashboard'])->name('scholar.dashboard');
 });
 
 Route::middleware('auth:scholar')->group(function () {
-    Route::get('/scholar/dashboard', [ScholarsController::class, 'dashboard'])->name('scholar.dashboard');
-    Route::post('/scholar/approve/{word}', [ScholarsController::class, 'approve'])->name('scholar.approve');
-    Route::post('/scholar/reject/{word}', [ScholarsController::class, 'reject'])->name('scholar.reject');
+
 });
