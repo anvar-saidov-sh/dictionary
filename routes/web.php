@@ -45,9 +45,11 @@ Route::prefix('scholar')->group(function () {
     Route::post('logout', [ScholarsController::class, 'logout'])->name('scholar.logout');
     Route::post('approve/{id}', [ScholarsController::class, 'approve'])->name('scholar.approve');
     Route::post('reject/{id}', [ScholarsController::class, 'reject'])->name('scholar.reject');
-     Route::get('/dashboard', [ScholarsController::class, 'dashboard'])->name('scholar.dashboard');
+    Route::get('/dashboard', [ScholarsController::class, 'dashboard'])->name('scholar.dashboard');
+    Route::get('/pendingwords', [ScholarsController::class, 'pendingWords'])->name('scholar.pendingwords');
+    Route::get('/reviewedwords', [ScholarsController::class, 'reviewedWords'])->name('scholar.reviewedwords');
+    Route::get('/pendingrequests', [ScholarsController::class, 'pendingRequests'])->name('scholar.pendingrequests');
+    Route::get('/reviewedrequests', [ScholarsController::class, 'reviewedRequests'])->name('scholar.reviewedrequests');
 });
 
-Route::middleware('auth:scholar')->group(function () {
-
-});
+Route::middleware('auth:scholar')->group(function () {});
