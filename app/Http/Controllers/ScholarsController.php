@@ -93,4 +93,27 @@ class ScholarsController extends Controller
 
         return redirect()->route('scholar.login')->with('success', 'Scholar registered successfully.');
     }
+
+    public function pendingWords()
+    {
+
+        return view('scholars.pendingwords');
+    }
+    public function pendingRequests()
+    {
+
+        return view('scholars.pendingrequests');
+    }
+
+    public function reviewedWords()
+    {
+
+        return view('scholars.reviewedwords');
+    }
+    public function reviewedRequests()
+    {
+
+        return view('scholars.reviewedrequests');
+    }
+
 }
