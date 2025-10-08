@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Container\Attributes\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
 class Scholars extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -19,6 +18,7 @@ class Scholars extends Authenticatable
 
     protected $hidden = [
         'password',
+        'remember_token', 
     ];
 
     public function approvedWords()
