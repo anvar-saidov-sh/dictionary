@@ -34,8 +34,8 @@ Route::middleware('auth:student')->group(function () {
     Route::controller(WordRequestController::class)->group(function () {
         Route::get('/words/{letter}/{word}/request', 'create')->name('words.requests.create');
         Route::post('/words/{letter}/{word}/request', 'store')->name('words.requests.store');
-        Route::post('/requests/{id}/approve', 'approve')->name('requests.approve');
-        Route::post('/requests/{id}/reject', 'reject')->name('requests.reject');
+        Route::post('/requests/{id}/approve', 'approveByOwner')->name('requests.approve');
+        Route::post('/requests/{id}/reject', 'rejectByOwner')->name('requests.reject');
     });
 });
 
@@ -52,9 +52,6 @@ Route::middleware('auth:scholar')->prefix('scholar')->name('scholar.')->group(fu
     Route::get('/pendingrequests', [ScholarsController::class, 'pendingRequests'])->name('pendingrequests');
     Route::get('/reviewedrequests', [ScholarsController::class, 'reviewedRequests'])->name('reviewedrequests');
 
-    Route::post('/approve/{id}', [ScholarsController::class, 'approve'])->name('approve');
-    Route::post('/reject/{id}', [ScholarsController::class, 'reject'])->name('reject');
-    Route::post('/requests/{id}/approve', [WordRequestController::class, 'approveByScholar'])->name('scholar.approve');
-    Route::post('/requests/{id}/reject', [WordRequestController::class, 'rejectByScholar'])->name('scholar.reject');
 });
-
+    Route::post('/scholar/approve/{id}', [WordRequestController::class, 'approveByScholar'])->name('scholar.approve');
+    Route::post('/scholar/reject/{id}', [WordRequestController::class, 'rejectByScholar'])->name('scholar.reject');
