@@ -18,11 +18,17 @@ class Scholars extends Authenticatable
 
     protected $hidden = [
         'password',
-        'remember_token', 
+        'remember_token',
     ];
+
 
     public function approvedWords()
     {
-        return $this->hasMany(Words::class, 'approved_by_scholar');
+        return $this->hasMany(Words::class, 'scholar_id');
+    }
+
+    public function reviewedRequests()
+    {
+        return $this->hasMany(WordRequest::class, 'scholar_id');
     }
 }
