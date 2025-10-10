@@ -16,23 +16,22 @@ class Words extends Model
         'idioms',
         'image',
         'student_id',
-        'verified',
-        'rejected',
+        'status',
     ];
 
 
-    public function student()
+    public function scopePublished($query)
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $query->where('status', 'approved');
     }
 
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
     public function requests()
     {
         return $this->hasMany(WordRequest::class, 'word_id');
     }
-
-    public function scholar()
-    {
-        return $this->belongsTo(Scholars::class, 'approved_by_scholar')->withDefault();
-    }
 }
+
