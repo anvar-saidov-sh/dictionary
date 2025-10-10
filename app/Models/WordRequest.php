@@ -12,18 +12,14 @@ class WordRequest extends Model
     protected $fillable = [
         'word_id',
         'student_id',
+        'scholar_id',
         'message',
         'status',
         'definition',
         'examples',
         'idioms',
         'image',
-        'scholar_id',
-        'approved_by_owner',
-        'rejected_by_owner',
     ];
-
-    
 
     public function word()
     {
