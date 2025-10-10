@@ -31,7 +31,7 @@ class Student extends Authenticatable
 
     public function words()
     {
-        return $this->hasMany(Words::class, 'student_id');
+        return $this->hasMany(Words::class);
     }
 
     public function requests()
