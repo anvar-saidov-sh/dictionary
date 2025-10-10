@@ -29,7 +29,7 @@ class StudentController extends Controller
             ->whereHas('word', function ($q) use ($user) {
                 $q->where('student_id', $user->id);
             })
-            ->where('status', 'pending')
+            ->where('status', 'pending_owner')
             ->latest()
             ->get();
 
