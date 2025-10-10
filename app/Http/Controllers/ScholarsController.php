@@ -11,16 +11,15 @@ use Illuminate\Support\Facades\Hash;
 
 class ScholarsController extends Controller
 {
-    
     public function dashboard()
     {
-        $scholar = auth()->guard('scholar')->user();
+        $scholar = Auth::guard('scholar')->user();
 
-        $pendingWords = Words::where('verified', false)
+        $pendingWords = Words::where('status', 'pending')
             ->orderBy('created_at', 'asc')
             ->paginate(10);
 
-        $reviewedWords = Words::where('verified', true)
+        $reviewedWords = Words::where('status', 'approved')
             ->orderBy('updated_at', 'desc')
             ->paginate(10);
 
@@ -41,48 +40,29 @@ class ScholarsController extends Controller
         ));
     }
 
-    // public function verify($id)
+    // public function approve($id)
     // {
     //     $word = Words::findOrFail($id);
-
-    //     $word->verified = true;
-    //     $word->rejected = false;
-    //     $word->verified_by_scholar = Auth::guard('scholar')->id();
+    //     $word->status = 'approved';
     //     $word->save();
 
-    //     return back()->with('success', 'Word verified successfully.');
+    //     return redirect()->back()->with('success', 'Word approved!');
     // }
-    public function approve($id)
-    {
-        $word = Words::findOrFail($id);
 
-        $word->verified = true;
-        $word->rejected = false;
-        $word->verified_by_scholar = Auth::guard('scholar')->id();
-        $word->save();
+    // public function reject($id)
+    // {
+    //     $word = Words::findOrFail($id);
+    //     $word->status = 'rejected';
+    //     $word->save();
 
-        return back()->with('success', 'Word verified successfully.');
-    }
-
-
-    public function reject($id)
-    {
-        $word = Words::findOrFail($id);
-
-        $word->verified = false;
-        $word->rejected = true;
-        $word->verified_by_scholar = Auth::guard('scholar')->id();
-        $word->save();
-
-        return back()->with('error', 'Word rejected by scholar.');
-    }
+    //     return redirect()->back()->with('success', 'Word rejected!');
+    // }
 
 
     public function showLoginForm()
     {
         return view('scholars.login');
     }
-
 
     public function login(Request $request)
     {
@@ -100,7 +80,6 @@ class ScholarsController extends Controller
         Auth::guard('scholar')->logout();
         return redirect()->route('scholar.login');
     }
-
 
     public function register(Request $request)
     {
@@ -121,8 +100,16 @@ class ScholarsController extends Controller
 
     public function pendingWords()
     {
-        $pendingWords = Words::where('verified', false)->paginate(10);
-        return view('scholars.pendingwords', compact('pendingWords'));
+        $pendingWords = Words::with('student')->where('status', 'pending')->get();
+        return view('scholars.pendingwords', compact(
+            'pendingWords'
+        ));
+    }
+
+    public function reviewedWords()
+    {
+        $reviewedWords = Words::where('status', ['approved', 'rejected'])->paginate(10);
+        return view('scholars.reviewedwords', compact('reviewedWords'));
     }
 
     public function pendingRequests()
@@ -131,15 +118,9 @@ class ScholarsController extends Controller
         return view('scholars.pendingrequests', compact('pendingRequests'));
     }
 
-    public function reviewedWords()
-    {
-        $reviewedWords = Words::where('verified', true)->paginate(10);
-        return view('scholars.reviewedwords', compact('reviewedWords'));
-    }
-
     public function reviewedRequests()
     {
-        $reviewedRequests = WordRequest::whereIn('status', ['approved', 'rejected'])->paginate(10);
+        $reviewedRequests = WordRequest::whereIn('status', ['approved_by_scholar', 'rejected_by_scholar'])->paginate(10);
         return view('scholars.reviewedrequests', compact('reviewedRequests'));
     }
 }
