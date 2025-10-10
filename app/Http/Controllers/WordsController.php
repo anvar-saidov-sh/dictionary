@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Words;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WordsController extends Controller
 {
@@ -27,15 +28,21 @@ class WordsController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        $validated['student_id'] = auth()->guard('student')->id();
+        $validated['student_id'] = Auth::guard('student')->id();
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('words', 'public');
         }
 
+        $validated['status'] = 'pending';
+        $validated['verified'] = false;
+        $validated['reviewed_by_scholar'] = false;
+
         Words::create($validated);
 
-        return redirect()->route('index')->with('success', 'Word created successfully!');
+        return redirect()
+            ->route('dashboard')
+            ->with('success', 'Word created and sent for scholar review.');
     }
 
     public function show($char)
@@ -48,19 +55,25 @@ class WordsController extends Controller
         ];
 
         $letter = $map[$char] ?? strtoupper($char);
-        $words = Words::whereRaw('LOWER(name) LIKE ?', [strtolower($letter) . '%'])->get();
+
+        $words = Words::published()
+            ->whereRaw('LOWER(name) LIKE ?', [strtolower($letter) . '%'])
+            ->get();
 
         return view('words.show', compact('letter', 'words'));
     }
 
     public function review($letter, Words $word)
     {
+        $isScholar = Auth::guard('scholar')->check();
+
+
         return view('words.review', compact('letter', 'word'));
     }
 
     public function edit($letter, Words $word)
     {
-        if ($word->student_id !== auth()->guard('student')->id()) {
+        if ($word->student_id !== Auth::guard('student')->id()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -69,7 +82,7 @@ class WordsController extends Controller
 
     public function update($letter, Request $request, Words $word)
     {
-        if ($word->student_id !== auth()->guard('student')->id()) {
+        if ($word->student_id !== Auth::guard('student')->id()) {
             abort(403, 'Unauthorized action.');
         }
 
@@ -77,26 +90,34 @@ class WordsController extends Controller
             'definition' => 'required|string|max:500',
             'examples' => 'nullable|string|max:1000',
             'idioms' => 'nullable|string|max:200',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('words', 'public');
         }
 
+        $validated['status'] = 'pending';
+        $validated['reviewed_by_scholar'] = false;
+        $validated['approved_by_scholar'] = null;
+
         $word->update($validated);
 
-        return redirect()->route('dashboard')->with('success', 'Word updated successfully!');
+        return redirect()
+            ->route('dashboard')
+            ->with('success', 'Word updated and resubmitted for scholar review.');
     }
 
     public function destroy($letter, Words $word)
     {
-        if ($word->student_id !== auth()->guard('student')->id()) {
+        if ($word->student_id !== Auth::guard('student')->id()) {
             abort(403, 'Unauthorized action.');
         }
 
         $word->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Word deleted successfully!');
+        return redirect()
+            ->route('dashboard')
+            ->with('success', 'Word deleted successfully.');
     }
 }
