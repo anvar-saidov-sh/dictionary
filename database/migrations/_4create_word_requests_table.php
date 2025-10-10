@@ -10,7 +10,6 @@ return new class extends Migration {
         if (!Schema::hasTable('word_requests')) {
             Schema::create('word_requests', function (Blueprint $table) {
                 $table->id();
-
                 $table->foreignId('word_id')->constrained('words')->onDelete('cascade');
                 $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
                 $table->foreignId('scholar_id')->nullable()->constrained('scholars')->onDelete('set null');
@@ -19,7 +18,6 @@ return new class extends Migration {
                 $table->text('examples')->nullable();
                 $table->text('idioms')->nullable();
                 $table->string('image')->nullable();
-
                 $table->enum('status', [
                     'pending_owner',
                     'pending_scholar',
