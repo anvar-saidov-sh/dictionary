@@ -24,7 +24,6 @@ return new class extends Migration {
                     'approved_by_scholar',
                     'rejected_by_scholar',
                 ])->default('pending_owner');
-
                 $table->timestamps();
             });
         }
