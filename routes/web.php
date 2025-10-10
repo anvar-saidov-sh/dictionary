@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ScholarsController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\WordRequestController;
@@ -53,9 +52,9 @@ Route::middleware('auth:scholar')->prefix('scholar')->name('scholar.')->group(fu
     Route::get('/pendingrequests', [ScholarsController::class, 'pendingRequests'])->name('pendingrequests');
     Route::get('/reviewedrequests', [ScholarsController::class, 'reviewedRequests'])->name('reviewedrequests');
 
-    // Approvals / rejections (both direct and request-based)
     Route::post('/approve/{id}', [ScholarsController::class, 'approve'])->name('approve');
     Route::post('/reject/{id}', [ScholarsController::class, 'reject'])->name('reject');
-    Route::post('/requests/{id}/approve', [WordRequestController::class, 'approveByScholar'])->name('requests.approve');
-    Route::post('/requests/{id}/reject', [WordRequestController::class, 'rejectByScholar'])->name('requests.reject');
+    Route::post('/requests/{id}/approve', [WordRequestController::class, 'approveByScholar'])->name('scholar.approve');
+    Route::post('/requests/{id}/reject', [WordRequestController::class, 'rejectByScholar'])->name('scholar.reject');
 });
+
