@@ -1,12 +1,11 @@
 <x-layout>
-    <div class="flex items-center justify-center min-h-screen bg-gray-100">
-        <div class="w-full max-w-2xl bg-white shadow-lg rounded-2xl p-8">
-            <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Add New Word</h1>
-
+    <div class="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md sm:max-w-xl md:max-w-2xl bg-white shadow-xl rounded-2xl p-6 sm:p-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6">Add New Word</h1>
             @if ($errors->any())
-                <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm sm:text-base">
                     <strong>Whoops!</strong> Something went wrong:
-                    <ul class="list-disc list-inside text-sm mt-2">
+                    <ul class="list-disc list-inside mt-2 space-y-1">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -21,14 +20,16 @@
                     <label class="block text-sm font-medium text-gray-700">Word</label>
                     <input type="text" name="name" required
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
-                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                               text-sm sm:text-base transition">
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Definition</label>
                     <textarea name="definition" required maxlength="500" rows="3"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
-                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                               text-sm sm:text-base transition"></textarea>
                     <p class="text-xs text-gray-500 mt-1">Max 500 characters</p>
                 </div>
 
@@ -36,7 +37,8 @@
                     <label class="block text-sm font-medium text-gray-700">Examples</label>
                     <textarea name="examples" maxlength="1000" rows="3"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
-                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                               text-sm sm:text-base transition"></textarea>
                     <p class="text-xs text-gray-500 mt-1">Max 1000 characters</p>
                 </div>
 
@@ -44,7 +46,8 @@
                     <label class="block text-sm font-medium text-gray-700">Idioms</label>
                     <textarea name="idioms" maxlength="200" rows="2"
                         class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
-                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                               focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
+                               text-sm sm:text-base transition"></textarea>
                     <p class="text-xs text-gray-500 mt-1">Max 200 characters</p>
                 </div>
 
@@ -55,13 +58,14 @@
                                file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0
                                file:text-sm file:font-semibold
                                file:bg-indigo-50 file:text-indigo-700
-                               hover:file:bg-indigo-100">
+                               hover:file:bg-indigo-100 transition">
                 </div>
 
                 <div>
                     <button type="submit"
-                        class="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg font-semibold shadow-md
-                               hover:bg-indigo-700 hover:shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5">
+                        class="w-full bg-indigo-600 text-white py-2 sm:py-3 px-4 rounded-lg font-semibold shadow-md
+                               hover:bg-indigo-700 hover:shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5
+                               text-sm sm:text-base">
                          Save Word
                     </button>
                 </div>
