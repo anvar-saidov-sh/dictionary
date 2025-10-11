@@ -120,4 +120,32 @@ class WordsController extends Controller
             ->route('dashboard')
             ->with('success', 'Word deleted successfully.');
     }
+    public function approveByScholar($id)
+    {
+        $word = Words::where('status', 'pending')
+        ->findOrFail($id);
+
+        $scholarId = Auth::guard('scholar')->id();
+
+
+
+        $word->update([
+            'status' => 'approved',
+        ]);
+
+        return back()->with('success', 'Request approved and applied successfully.');
+    }
+
+    public function rejectByScholar($id)
+    {
+        $word = Words::where('status', 'pending')->findOrFail($id);
+
+        $word->update([
+            'status' => 'rejected',
+            'scholar_id' => Auth::guard('scholar')->id(),
+        ]);
+
+        return back()->with('info', 'Request rejected by scholar.');
+    }
+
 }
