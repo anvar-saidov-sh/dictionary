@@ -4,6 +4,7 @@ use App\Http\Controllers\ScholarsController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\WordRequestController;
 use App\Http\Controllers\WordsController;
+use App\Models\Words;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('welcome'));
@@ -51,7 +52,8 @@ Route::middleware('auth:scholar')->prefix('scholar')->name('scholar.')->group(fu
     Route::get('/reviewedwords', [ScholarsController::class, 'reviewedWords'])->name('reviewedwords');
     Route::get('/pendingrequests', [ScholarsController::class, 'pendingRequests'])->name('pendingrequests');
     Route::get('/reviewedrequests', [ScholarsController::class, 'reviewedRequests'])->name('reviewedrequests');
-
 });
-    Route::post('/scholar/approve/{id}', [WordRequestController::class, 'approveByScholar'])->name('scholar.approve');
-    Route::post('/scholar/reject/{id}', [WordRequestController::class, 'rejectByScholar'])->name('scholar.reject');
+Route::post('/scholar/approves/{id}', [WordRequestController::class, 'approveByScholar'])->name('scholar.approve');
+Route::post('/scholar/rejects/{id}', [WordRequestController::class, 'rejectByScholar'])->name('scholar.reject');
+Route::post('/scholar/approve/{id}', [WordsController::class, 'approveByScholar'])->name('scholar.approves');
+Route::post('/scholar/reject/{id}', [WordsController::class, 'rejectByScholar'])->name('scholar.rejects');
