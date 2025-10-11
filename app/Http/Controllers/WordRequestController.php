@@ -105,7 +105,7 @@ class WordRequestController extends Controller
         $req = WordRequest::where('status', 'pending_scholar')->findOrFail($id);
 
         $req->update([
-            'status' => 'rejected',
+            'status' => 'rejected_by_scholar',
             'scholar_id' => Auth::guard('scholar')->id(),
         ]);
 
