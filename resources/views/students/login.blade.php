@@ -1,27 +1,37 @@
 <x-layout>
-    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
         <form method="POST" action="{{ route('login') }}"
-              class="w-full max-w-sm bg-white shadow-lg rounded-2xl p-8 space-y-6">
+              class="w-full max-w-sm sm:max-w-md bg-white shadow-xl rounded-2xl p-6 sm:p-8 space-y-6">
             @csrf
-            <h2 class="text-2xl font-bold text-center text-gray-800">Login</h2>
+
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-800">
+                Login
+            </h2>
 
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input type="email" name="email" id="email" placeholder="Enter your email" required
-                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
+                              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                              text-sm sm:text-base transition">
             </div>
 
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                 <input type="password" name="password" id="password" placeholder="Enter your password" required
-                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                       class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm
+                              focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                              text-sm sm:text-base transition">
             </div>
 
             <button type="submit"
-                    class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold shadow-md hover:bg-blue-700 hover:shadow-lg transition duration-200 ease-in-out transform hover:-translate-y-0.5">
+                    class="w-full bg-blue-600 text-white py-2 sm:py-3 px-4 rounded-lg font-semibold
+                           shadow-md hover:bg-blue-700 hover:shadow-lg transition duration-200 ease-in-out
+                           transform hover:-translate-y-0.5 text-sm sm:text-base">
                 Login
             </button>
-            <p class="text-sm text-center text-gray-600">
+
+            <p class="text-sm sm:text-base text-center text-gray-600">
                 No account?
                 <a href="{{ route('register') }}" class="text-green-600 hover:text-green-700 font-medium">
                     Register
