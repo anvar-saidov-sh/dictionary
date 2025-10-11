@@ -1,22 +1,30 @@
 <x-navfooter>
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-6">Pending Word Requests</h1>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-6 text-indigo-700 text-center sm:text-left">
+            Pending Word Requests
+        </h1>
 
         @if (session('success'))
-            <div class="bg-green-100 text-green-800 px-4 py-2 rounded mb-4">
+            <div class="bg-green-100 text-green-800 px-4 py-2 rounded mb-4 text-center sm:text-left font-medium">
                 {{ session('success') }}
             </div>
         @endif
-
+        @if(session('error'))
+            <div class="bg-red-100 text-red-800 px-4 py-2 rounded mb-4 text-center sm:text-left font-medium">
+                {{ session('error') }}
+            </div>
+        @endif
         @if ($pendingRequests->isEmpty())
-            <p class="text-gray-600">No pending word requests at the moment.</p>
+            <p class="text-gray-600 text-center sm:text-left">No pending word requests at the moment.</p>
         @else
-            <div class="space-y-4">
+            <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($pendingRequests as $word)
-                    <div class="bg-white shadow-md rounded-lg p-4 border border-gray-200">
-                        <h2 class="text-xl font-semibold text-indigo-700">{{ $word->name }}</h2>
+                    <div class="bg-white shadow-md rounded-xl p-5 border border-gray-200 hover:shadow-lg transition duration-200">
+                        <h2 class="text-xl font-semibold text-indigo-700 truncate">{{ $word->name }}</h2>
+
                         <p class="text-gray-700 mt-2">
-                            <span class="font-semibold">Definition:</span> {{ $word->definition }}
+                            <span class="font-semibold">Definition:</span>
+                            {{ $word->definition }}
                         </p>
 
                         @if ($word->examples)
@@ -32,29 +40,33 @@
                         @endif
 
                         @if ($word->image)
-                            <div class="mt-3">
-                                <img src="{{ asset('storage/' . $word->image) }}" alt="Word Image"
-                                    class="w-32 h-32 object-cover rounded-lg border">
+                            <div class="mt-3 flex justify-center sm:justify-start">
+                                <img src="{{ asset('storage/' . $word->image) }}"
+                                     alt="Word Image"
+                                     class="w-32 h-32 object-cover rounded-lg border">
                             </div>
                         @endif
 
                         <p class="text-sm text-gray-500 mt-2">
                             Submitted by:
-                            <span class="font-medium">{{ $word->student->name ?? 'Unknown' }}</span>
+                            <span class="font-medium text-gray-700">
+                                {{ $word->student->name ?? 'Unknown' }}
+                            </span>
                         </p>
 
-                        <div class="mt-4 flex space-x-2">
+                        <div class="mt-4 flex flex-wrap gap-2 justify-center sm:justify-start">
                             <form action="{{ route('scholar.approve', $word->id) }}" method="POST">
                                 @csrf
                                 <button type="submit"
-                                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                                    class="w-full sm:w-auto bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
                                     Approve
                                 </button>
                             </form>
 
                             <form action="{{ route('scholar.reject', $word->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                <button type="submit"
+                                    class="w-full sm:w-auto bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
                                     Reject
                                 </button>
                             </form>
