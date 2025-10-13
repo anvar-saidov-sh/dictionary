@@ -1,4 +1,4 @@
-<x-layout>
+<x-navfooter>
     <section class="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 lg:px-8">
         <div class="bg-white w-full max-w-sm sm:max-w-md md:max-w-lg p-6 sm:p-8 rounded-2xl shadow-lg">
 
@@ -32,4 +32,4 @@
             </p>
         </div>
     </section>
-</x-layout>
+</x-navfooter>
